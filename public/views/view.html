@@ -1,4 +1,9 @@
 <div ng-controller="ViewController" class="sidebar col-md-2">
-      <h3>Testing View</h3>
-      Test-var: {{formula}}
+      <div class="module">
+      <div>
+      <span ng-click="delete()">Delete</span>
+      </div>
+      <h3 class="title">{{formula.title}}</h3>
+      <div class="content"> {{formula.content}}</div>
+      </div>
 </div>      

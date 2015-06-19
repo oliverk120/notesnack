@@ -7,20 +7,15 @@ module.exports = function(app) {
         // handle things like api calls
         // authentication routes
 
-        app.get('/api/formula/:formulaId', function(req, res){
-            controller.show(req, res);
-        });
+        app.route('/api/formula/:formulaId')
+            .get(controller.show)
+            .put(controller.update)
+            .delete(controller.destroy);
+
         // sample api route
-        app.get('/api/formulas', function(req, res) {
-            // use mongoose to get all Formulas in the database
-            controller.all(req, res);
-        });
-
-        // route to handle creating goes here (app.post)
-
-        app.post('/api/formulas', function(req, res){
-            controller.create(req, res);
-        })
+        app.route('/api/formulas')
+            .get(controller.all)
+            .post(controller.create);
         // route to handle delete goes here (app.delete)
 
         // frontend routes =========================================================
