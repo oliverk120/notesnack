@@ -57,6 +57,7 @@ exports.update = function(req, res) {
 
 exports.destroy = function(req, res) {
   var formula = req.formula;
+  console.log('in detel');
   formula.remove(function(err) {
     if (err) {
       return res.json(500, {

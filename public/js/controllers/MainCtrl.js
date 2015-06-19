@@ -1,6 +1,6 @@
 // public/js/controllers/MainCtrl.js
 var app = angular.module('MainCtrl', []);
-app.controller('MainController', function($scope, $http) {
+app.controller('MainController', function($scope, $http, Formulas) {
   $scope.sheetData = [];
   $http.get('/api/Formulas')
         .success(function(data) {
