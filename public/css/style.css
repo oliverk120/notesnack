@@ -4,6 +4,22 @@
   box-sizing: border-box;
 }
 
+#formulaSheet {
+  padding:0;
+}
+
+.hidden {
+  display: none;
+}
+
+.formulaList {
+  padding: 0;
+}
+
+.formulaList li {
+  list-style: none;
+}
+
 .disabledLink, .disabledLink:hover, .disabledLink:active, .disabledLink:focus {
   text-decoration: line-through;
   color: grey;
@@ -25,9 +41,8 @@
   clear: both;
 }
 .module-container .module, .module-container .module-sizer {
-  border: 1px solid #eaeaea;
   max-width: 500px;
-  background-color: #c4c4c4;
+  padding: 5px;
 }
 .module-container .module {
   float: left;
@@ -38,6 +53,10 @@
 }
 .module-container .module.is-dragging {
   z-index: 2;
+}
+
+.module-container .moduleBorder {
+  border: 1px solid #eaeaea;
 }
 
 #append, #reset {

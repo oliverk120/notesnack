@@ -91,7 +91,7 @@ app.controller('MainController', function($scope, $http, Formulas) {
 
   return {
     require: '^workspace',
-    template: '<div class="module" id="{{item.id}}"><span class="close" ng-click="remove(item)">&times;</span><div class="title">{{item.title}}</div><div class="content"> {{item.content}}</div></div>',
+    template: '<div class="module" ng-class="{moduleBorder:editable}" id="{{item.id}}"><span class="close" ng-class="{hidden:!editable}" ng-click="remove(item)">&times;</span><div class="title"><a href="formula/{{item._id}}">{{item.title}}</a></div><div class="content"> {{item.content}}</div></div>',
     controller: function($scope, $element) {
       //var draggableAppend = new Draggabilly($element[0]);
       //$scope.packery.bindDraggabillyEvents(draggableAppend);
@@ -116,7 +116,7 @@ app.controller('MainController', function($scope, $http, Formulas) {
   };
 }]).directive('formulalink', [function() {
   return {
-    template: '<a href="" ng-click="appendItem(item)" ng-class="  isInNoteSheet(item)">{{item.title}}</a>',
+    template: '<a href="" ng-click="appendItem(item)" ng-class="  isInNoteSheet(item)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> &nbsp{{item.title}}</a>',
     controller: function() {
       var test = 'foo';
     },

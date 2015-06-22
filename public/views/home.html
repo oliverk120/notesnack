@@ -2,12 +2,14 @@
       <h3>Formulas</h3>
       <div class="options"> <a ng-click="formulaBarExpand()" href="">Expand</a></div>
       <input type="text" ng-model="searchText">
-      <ul>
+      <ul class="formulaList">
         <li data-ng-repeat="item in data | filter:searchText" formulalink></li>
       </ul>
     </div>
     <h3>New Note Sheet </h3>
     <div class="options"> 
+      <button id="edit" ng-click="editable = true" ng-class="{'hidden':editable}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</button>
+      <button id="edit" ng-click="editable = false" ng-class="{'hidden':!editable}">Save</button>
       <button id="arrange" disabled class="btn">Arrange</button>
     </div>
     <div id="formulaSheet" workspace class="module-container col-md-10">
