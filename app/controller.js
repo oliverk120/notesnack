@@ -29,8 +29,8 @@ exports.all = function(req, res) {
 
 exports.create = function(req, res) {
   
-  var saveFormula = function(save){
-    var formula = new Formula(save);
+  var saveFormula = function(saveFormula){
+    var formula = new Formula(saveFormula);
     formula.save(function(err) {
       if (err) {
         return res.json(500, {
@@ -53,18 +53,18 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  var formula = req.formula;
-
-  formula = _.extend(formula, req.body);
-
-  formula.save(function(err) {
-    if (err) {
-      return res.status(500).json({
-        error: 'Cannot update the formula'
+  var _formula = req.body;
+  var id = "ObjectId("+_formula.id+")";
+  Formula.findOne({ _id: _formula._id }, function (err, doc){
+    console.log('found one');
+    doc = _formula;
+    doc.save(function(err){
+      if (err) {
+        return res.json(500, {
+          error: 'Cannot update the formula'
       });
-    }
-    res.json(formula);
-
+      }
+    });
   });
 };
 

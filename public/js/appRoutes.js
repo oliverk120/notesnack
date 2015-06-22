@@ -11,6 +11,9 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         .when('/formula/:formulaId', {
             templateUrl: 'views/view.html',
         })
+        .when('/formula/:formulaId/edit', {
+            templateUrl: 'views/edit.html',
+        })
         .when('/formulas/create', {
             templateUrl: 'views/createFormula.html',
         });

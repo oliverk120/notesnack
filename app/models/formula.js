@@ -17,6 +17,9 @@ var FormulaSchema = new Schema({
   },
   content: {
     type: String
+  },
+  updated: {
+    type: Array
   }
 });
 

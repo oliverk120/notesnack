@@ -69,6 +69,7 @@
       .success(function(data){
         console.log('success');
         console.log(data);
+        $scope.title = '', $scope.content = '';
       })
       .error(function(data){
         console.log('Error: ' + data);
