@@ -37,6 +37,7 @@ exports.create = function(req, res) {
           error: 'Cannot save the formula'
       });
     }
+    console.log(formula);
     res.json(formula);
   });
   }

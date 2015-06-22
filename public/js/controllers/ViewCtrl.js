@@ -10,5 +10,6 @@ angular.module('ViewCtrl', []).controller('ViewController', function($scope, $ht
         });
    $scope.delete = function(){
    		Formulas.delete(formulaId);
+      $scope.formula = {};
    }
 });

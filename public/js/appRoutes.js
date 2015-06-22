@@ -10,6 +10,9 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         })
         .when('/formula/:formulaId', {
             templateUrl: 'views/view.html',
+        })
+        .when('/formulas/create', {
+            templateUrl: 'views/createFormula.html',
         });
 
     $locationProvider.html5Mode(true);
