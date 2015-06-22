@@ -6,7 +6,7 @@ app.controller('MainController', function($scope, $http, Formulas) {
   $scope.data = [];
   // pagination settings  
   $scope.currentPage = 1;
-  $scope.numPerPage = 3;
+  $scope.numPerPage = 5;
 
   $scope.selectPage = function(page, evt) {
     if ( $scope.page !== page && page > 0 && page <= $scope.totalPages) {
@@ -17,6 +17,18 @@ app.controller('MainController', function($scope, $http, Formulas) {
     $scope.setPage(page);
   };
 
+  $scope.onFocus = function(){
+    //allows you to search all formulas, not just the ones on the current pagination page
+    $scope.filteredData = $scope.data;
+    //console.log('focused');
+  }
+
+  $scope.outFocus = function(){
+    //limits the formulas shown to the current pagination page
+    $scope.searchText = '';
+    $scope.setPage($scope.currentPage);
+  }
+
   $scope.setPage = function (pageNo) {
     $scope.currentPage = pageNo;
     var begin = (($scope.currentPage - 1) * $scope.numPerPage)
@@ -24,7 +36,6 @@ app.controller('MainController', function($scope, $http, Formulas) {
     if($scope.data.length > 0){
       $scope.filteredData = $scope.data.slice(begin, end);
     }
-    console.log($scope.data);
   };
 
   $http.get('/api/Formulas')

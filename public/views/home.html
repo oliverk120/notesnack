@@ -1,12 +1,12 @@
 <div class="sidebar col-md-2">
       <h3>Formulas</h3>
       <div class="options"> <a ng-click="formulaBarExpand()" href="">Expand</a></div>
-      <input type="text" ng-model="searchText">
+      <input type="text" ng-model="searchText" ng-focus="onFocus()" ng-blur="outFocus()">
       <ul class="formulaList">
-        <li data-ng-repeat="item in filteredData | filter:searchText" formulalink></li>
+        <li data-ng-repeat="item in filteredData | filter:searchText | limitTo:numPerPage" formulalink></li>
       </ul>
       <div ng-controller="PaginationController">
-    <pagination boundary-links="true" items-per-page="numPerPage" ng-model="currentPage" total-items="totalItems" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+    <pagination boundary-links="true" items-per-page="numPerPage" max-size="5" ng-model="currentPage" total-items="totalItems" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
     
 </div>
     </div>
