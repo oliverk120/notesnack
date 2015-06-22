@@ -3,8 +3,12 @@
       <div class="options"> <a ng-click="formulaBarExpand()" href="">Expand</a></div>
       <input type="text" ng-model="searchText">
       <ul class="formulaList">
-        <li data-ng-repeat="item in data | filter:searchText" formulalink></li>
+        <li data-ng-repeat="item in filteredData | filter:searchText" formulalink></li>
       </ul>
+      <div ng-controller="PaginationController">
+    <pagination boundary-links="true" items-per-page="numPerPage" ng-model="currentPage" total-items="totalItems" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+    
+</div>
     </div>
     <h3>New Note Sheet </h3>
     <div class="options"> 

@@ -28,15 +28,27 @@ exports.all = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  var formula = new Formula(req.body);
-            formula.save(function(err) {
-                if (err) {
-                  return res.json(500, {
-                    error: 'Cannot save the formula'
-                });
-              }
-              res.json(formula);
-            });
+  
+  var saveFormula = function(save){
+    var formula = new Formula(save);
+    formula.save(function(err) {
+      if (err) {
+        return res.json(500, {
+          error: 'Cannot save the formula'
+      });
+    }
+    res.json(formula);
+  });
+  }
+  if(req.body.isArray){
+    for (var i = 0, len = req.body.length; i < len; i++) {
+      saveFormula(req.body[i]);
+      console.log('formula '+i+'/'+len+' saved successfully');
+    }
+  } else {
+    saveFormula(req.body);
+  }
+  
 };
 
 exports.update = function(req, res) {
