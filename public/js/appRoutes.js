@@ -9,13 +9,22 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'MainController'
         })
         .when('/formula/:formulaId', {
-            templateUrl: 'views/view.html',
+            templateUrl: 'views/formula/view.html',
         })
         .when('/formula/:formulaId/edit', {
-            templateUrl: 'views/edit.html',
+            templateUrl: 'views/formula/edit.html',
         })
         .when('/formulas/create', {
-            templateUrl: 'views/createFormula.html',
+            templateUrl: 'views/formula/create.html',
+        })
+        .when('/notesheet/:notesheetId', {
+            templateUrl: 'views/notesheet/view.html',
+        })
+        .when('/notesheet/:notesheetId/edit', {
+            templateUrl: 'views/notesheet/edit.html',
+        })
+        .when('/notesheets/create', {
+            templateUrl: 'views/notesheet/create.html',
         });
 
     $locationProvider.html5Mode(true);

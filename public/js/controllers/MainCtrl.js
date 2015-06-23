@@ -60,22 +60,6 @@
       }
     }
 
-    $scope.create = function(){
-      var formula = {
-            title: this.title,
-            content: this.content
-          };
-      Formulas.create(formula)
-      .success(function(data){
-        console.log('success');
-        console.log(data);
-        $scope.title = '', $scope.content = '';
-      })
-      .error(function(data){
-        console.log('Error: ' + data);
-      });
-    }
-
   }]).directive('workspace', ['$rootScope', function($rootScope) {
     return {
       constrain: 'A',

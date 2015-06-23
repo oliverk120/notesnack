@@ -1,2 +1,2 @@
 // public/js/app.js
-angular.module('notesnack', ['ngRoute', 'appRoutes', 'MainCtrl', 'ViewCtrl', 'PaginationCtrl', 'formulaService']);
+angular.module('notesnack', ['ngRoute', 'appRoutes', 'MainCtrl', 'FormulaCtrl', 'NotesheetCtrl', 'PaginationCtrl', 'formulaService']);

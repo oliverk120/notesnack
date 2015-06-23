@@ -1,5 +1,6 @@
  // app/routes.js
-var controller = require('./controller');
+var formula = require('./formulaController');
+var notesheet = require('./notesheetController');
 
 module.exports = function(app) {
 
@@ -8,14 +9,25 @@ module.exports = function(app) {
         // authentication routes
 
         app.route('/api/formula/:formulaId')
-            .get(controller.show)
-            .put(controller.update)
-            .delete(controller.destroy);
+            .get(formula.show)
+            .put(formula.update)
+            .delete(formula.destroy);
 
         // sample api route
         app.route('/api/formulas')
-            .get(controller.all)
-            .post(controller.create);
+            .get(formula.all)
+            .post(formula.create);
+        // route to handle delete goes here (app.delete)
+
+        app.route('/api/notesheet/:notesheetId')
+            .get(notesheet.show)
+            .put(notesheet.update)
+            .delete(notesheet.destroy);
+
+        // sample api route
+        app.route('/api/notesheets')
+            .get(notesheet.all)
+            .post(notesheet.create);
         // route to handle delete goes here (app.delete)
 
         // frontend routes =========================================================
@@ -24,5 +36,6 @@ module.exports = function(app) {
             res.sendfile('./public/views/index.html'); // load our public/index.html file
         });
 
-        app.param('formulaId', controller.formula);
+        app.param('formulaId', formula.formula);
+        app.param('notesheetId', notesheet.notesheet);
     };

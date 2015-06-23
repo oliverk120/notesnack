@@ -21,5 +21,24 @@ angular.module('formulaService', [])
                 return $http.delete('/api/formula/' + id);
             }
         }
+    }])
+    .factory('Notesheets', ['$http', function($http) {
+        return {
+            get : function() {
+                return $http.get('/api/notesheets');
+            },
+            getOne : function(id) {
+                return $http.get('/api/notesheet/'+ id);
+            },
+            create : function(notesheetData) {
+                return $http.post('/api/notesheets', notesheetData);
+            },
+            update : function(id, notesheetData) {
+                return $http.put('/api/notesheet/' + id, notesheetData);
+            },
+            delete : function(id) {
+                return $http.delete('/api/notesheet/' + id);
+            }
+        }
     }]);
 
