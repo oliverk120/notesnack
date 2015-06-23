@@ -53,19 +53,30 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  var _formula = req.body;
-  var id = "ObjectId("+_formula.id+")";
-  Formula.findOne({ _id: _formula._id }, function (err, doc){
-    console.log('found one');
-    doc = _formula;
-    doc.save(function(err){
+  function extend(a, b){
+    for(var key in b)
+        if(b.hasOwnProperty(key))
+            a[key] = b[key];
+    return a;
+  }
+  
+  var query = Formula.where({_id: req.params.formulaId});
+  query.findOne(function (err, formula) {
+  if (err) {
+    console.log(err)
+  }
+  if (formula) {
+    formula = extend(formula, req.body);
+    formula.save(function(err) {
       if (err) {
         return res.json(500, {
-          error: 'Cannot update the formula'
+          error: 'Cannot save the formula'
       });
-      }
-    });
+    }
+    res.json(formula);
   });
+  }
+});
 };
 
 exports.destroy = function(req, res) {
