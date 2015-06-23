@@ -17,6 +17,9 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         .when('/formulas/create', {
             templateUrl: 'views/formula/create.html',
         })
+        .when('/notesheets', {
+            templateUrl: 'views/notesheet/index.html',
+        })
         .when('/notesheet/:notesheetId', {
             templateUrl: 'views/notesheet/view.html',
         })

@@ -1,12 +1,37 @@
   // public/js/controllers/MainCtrl.js
   var app = angular.module('MainCtrl', []);
-  app.controller('MainController', ['$scope', 'Formulas', function($scope, Formulas) {
+  app.controller('MainController', ['$scope', 'Formulas', 'Notesheets', function($scope, Formulas, Notesheets) {
     $scope.editable = true;
     $scope.sheetData = [];
     $scope.data = [];
+    $scope.sheetDataIds = [];
     // pagination settings  
     $scope.currentPage = 1;
     $scope.numPerPage = 5;
+
+    Formulas.get()
+    .success(function(data) {
+      $scope.data = data;
+      $scope.filteredData = data.slice(0, $scope.numPerPage);
+      $scope.totalItems = data.length;
+      //$scope.sheetData = data.slice(1,4);
+    })
+    .error(function(data) {
+      console.log('Error: ' + data);
+    });
+
+    $scope.isInNoteSheet = function(item) {
+      if ($scope.sheetData.indexOf(item) > -1) {
+        return 'disabledLink';
+      }
+    }
+
+    ///Pagination Functions
+    $scope.pagination = function(){
+      this.fun = function(){
+        console.log('wurs');
+      }
+    }
 
     $scope.selectPage = function(page, evt) {
       if ( $scope.page !== page && page > 0 && page <= $scope.totalPages) {
@@ -20,7 +45,6 @@
     $scope.onFocus = function(){
       //allows you to search all formulas, not just the ones on the current pagination page
       $scope.filteredData = $scope.data;
-      //console.log('focused');
     }
 
     $scope.outFocus = function(){
@@ -37,28 +61,7 @@
         $scope.filteredData = $scope.data.slice(begin, end);
       }
     };
-
-    Formulas.get()
-    .success(function(data) {
-      $scope.data = data;
-      $scope.filteredData = data.slice(0, $scope.numPerPage);
-      $scope.sheetData = data.slice(1,3);
-      $scope.totalItems = data.length;
-    })
-    .error(function(data) {
-      console.log('Error: ' + data);
-    });
-
-    $scope.formulaBarExpand = function() {
-
-    }
     
-    
-    $scope.isInNoteSheet = function(item) {
-      if ($scope.sheetData.indexOf(item) > -1) {
-        return 'disabledLink';
-      }
-    }
 
   }]).directive('workspace', ['$rootScope', function($rootScope) {
     return {
@@ -74,7 +77,7 @@
           //to disable duplicates
           if ($scope.sheetData.indexOf(object) == -1) {
             $scope.sheetData.push(object);
-            
+            $scope.sheetDataIds.push(object._id);
             $scope.packery.layout();
           } else {
             console.log('already added');
@@ -82,28 +85,16 @@
         }
       },
       link: function($scope, element, attrs) {
-
         element.ready(function() {
-          /*
-          angular.forEach($scope.packery.getItemElements(), function(item) {
-            var draggable = new Draggabilly(item);
-            $scope.packery.bindDraggabillyEvents(draggable);
-          });
-        */
         $scope.packery.layout();
       });
 
       }
     };
   }]).directive('nsformula', [function() {
-
     return {
       require: '^workspace',
       template: '<div class="module" ng-class="{moduleBorder:editable}" id="{{item.id}}"><span class="close" ng-class="{hidden:!editable}" ng-click="remove(item)">&times;</span><div class="title"><a href="formula/{{item._id}}">{{item.title}}</a></div><div class="content"> {{item.content}}</div></div>',
-      controller: function($scope, $element) {
-        //var draggableAppend = new Draggabilly($element[0]);
-        //$scope.packery.bindDraggabillyEvents(draggableAppend);
-      },
       link: function($scope, element, attributes, workspace) {
         $scope.packery.appended(element[0]);
         element.ready(function() {
@@ -124,13 +115,6 @@
     };
   }]).directive('formulalink', [function() {
     return {
-      template: '<a href="" ng-click="appendItem(item)" ng-class="  isInNoteSheet(item)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> &nbsp{{item.title}}</a>',
-      controller: function() {
-        var test = 'foo';
-      },
-      link: function(scope, element, attr) {
-      }
+      template: '<a href="" ng-click="appendItem(item)" ng-class="isInNoteSheet(item)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> &nbsp{{item.title}}</a>',
     }
   }]);
-  ;
-

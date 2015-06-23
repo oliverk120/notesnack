@@ -1,0 +1,10 @@
+<div ng-controller="NotesheetController" class="sidebar col-md-2" data-ng-init="notesheetList()">
+<div ng-repeat="notesheet in notesheets">
+		<div>
+			<button class="btn" ng-click="delete()">Delete</button>
+			<button class="btn" ><a href="notesheet/{{notesheet._id}}/edit">Edit</a></button>
+		</div>
+		<h3 class="title">{{notesheet.title}}</h3>
+		<div class="content"> {{notesheet.content}}</div>
+	</div>
+</div>      
