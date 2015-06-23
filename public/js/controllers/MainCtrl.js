@@ -5,9 +5,6 @@
     $scope.sheetData = [];
     $scope.data = [];
     $scope.sheetDataIds = [];
-    // pagination settings  
-    $scope.currentPage = 1;
-    $scope.numPerPage = 5;
 
     Formulas.get()
     .success(function(data) {
@@ -24,44 +21,7 @@
       if ($scope.sheetData.indexOf(item) > -1) {
         return 'disabledLink';
       }
-    }
-
-    ///Pagination Functions
-    $scope.pagination = function(){
-      this.fun = function(){
-        console.log('wurs');
-      }
-    }
-
-    $scope.selectPage = function(page, evt) {
-      if ( $scope.page !== page && page > 0 && page <= $scope.totalPages) {
-        if (evt && evt.target) {
-          evt.target.blur();
-        }
-      }
-      $scope.setPage(page);
-    };
-
-    $scope.onFocus = function(){
-      //allows you to search all formulas, not just the ones on the current pagination page
-      $scope.filteredData = $scope.data;
-    }
-
-    $scope.outFocus = function(){
-      //limits the formulas shown to the current pagination page
-      $scope.searchText = '';
-      $scope.setPage($scope.currentPage);
-    }
-
-    $scope.setPage = function (pageNo) {
-      $scope.currentPage = pageNo;
-      var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-      , end = begin + $scope.numPerPage;
-      if($scope.data.length > 0){
-        $scope.filteredData = $scope.data.slice(begin, end);
-      }
-    };
-    
+    } 
 
   }]).directive('workspace', ['$rootScope', function($rootScope) {
     return {
