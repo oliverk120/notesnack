@@ -13,6 +13,8 @@ angular.module('NotesheetCtrl', []).controller('NotesheetController', ['$scope',
     $scope.notesheetTitle = 'Test Title';
   }
 
+  $scope.sheetData = [{title:'ih', content:'boo'},{title:'bla', content:'bra'}];
+
   $scope.saveNotesheet = function(data){
     $scope.editable = false;
     $scope.create(data);

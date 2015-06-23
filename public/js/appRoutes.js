@@ -1,7 +1,7 @@
 // public/js/appRoutes.js
-angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function($stateProvider, $locationProvider) {
+angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
-    $stateProvider
+    $routeProvider
 
         // home page
         .when('/', {
@@ -18,6 +18,9 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/formula/create.html',
         })
         .when('/notesheets', {
+            templateUrl: 'views/notesheet/main.html',
+        })
+        .when('/notesheets/list', {
             templateUrl: 'views/notesheet/index.html',
         })
         .when('/notesheet/:notesheetId', {
