@@ -23,6 +23,7 @@
   <div ng-controller="NotesheetController">
     <h3><input ng-class="{'hidden':!editable}" type="text" ng-model="notesheet.title"/></h3>
     <h3 ng-class="{'hidden':editable}">{{notesheet.title}}</h3>
+    {{sheetDataIds}}
     <div class="options"> 
       <button id="edit" class="btn" ng-click="editable = true" ng-class="{'hidden':editable}">
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
@@ -30,7 +31,7 @@
       <button id="edit" class="btn" ng-click="saveNotesheet(sheetData)" ng-class="{'hidden':!editable}">
         <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save
       </button>
-      <button id="edit" class="btn" ng-click="delete(notesheet.id)" ng-class="{'hidden':!editable}">
+      <button id="edit" class="btn" ng-click="delete()" ng-class="{'hidden':!editable}">
         <span class="glyphicon glyphicon-delete" aria-hidden="true"></span> Delete
       </button>
       <button id="arrange" disabled class="btn">

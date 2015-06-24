@@ -1,7 +1,7 @@
   // public/js/controllers/MainCtrl.js
   var app = angular.module('MainCtrl', []);
   app.controller('MainController', ['$scope','$routeParams', 'Formulas', 'Notesheets', function($scope, $routeParams, Formulas, Notesheets) {
-    $scope.editable = true;
+    //$scope.editable = true;
     $scope.sheetData = [];
     $scope.data = [];
     $scope.sheetDataIds = [];
@@ -27,7 +27,9 @@
             content: JSON.parse(data.content)
           };
           $scope.sheetData = $scope.notesheet.content;
-          console.log($scope.sheetData);
+          for(i = 0; i < $scope.sheetData.length; i++){
+            $scope.sheetDataIds.push($scope.sheetData[i]._id);
+          }
         })
         .error(function(data) {
           console.log('Error: ' + data);
@@ -35,16 +37,18 @@
       } else {
         $scope.notesheet = {title:'New Notesheet'};
         $scope.sheetData = [];
+        $scope.sheetDataIds = [];
       }
     }
 
     $scope.appendItem = function(object) {
       //to disable duplicates
-      if ($scope.sheetData.indexOf(object) == -1) {
+      console.log(object);
+      if ($scope.sheetDataIds.indexOf(object._id) == -1) {
         $scope.sheetData.push(object);
         $scope.sheetDataIds.push(object._id);
       } else {
-        console.log('already added');
+        alert('This formula has already been added to the note sheet');
       }
     }
 
