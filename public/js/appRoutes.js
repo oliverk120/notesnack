@@ -24,7 +24,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/notesheet/index.html',
         })
         .when('/notesheet/:notesheetId', {
-            templateUrl: 'views/notesheet/view.html',
+            templateUrl: 'views/notesheet/main.html',
         })
         .when('/notesheet/:notesheetId/edit', {
             templateUrl: 'views/notesheet/edit.html',

@@ -5,6 +5,6 @@
       <button class="btn" ><a href="notesheet/{{notesheet._id}}/edit">Edit</a></button>
       </div>
       <h3 class="title">{{notesheet.title}}</h3>
-      <div class="content"> {{notesheet.content}}</div>
+      <div class="" data-ng-repeat="formula in notesheet.content">{{formula}}</div>
       </div>
 </div>      

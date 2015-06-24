@@ -1,6 +1,6 @@
   // public/js/controllers/MainCtrl.js
   var app = angular.module('MainCtrl', []);
-  app.controller('MainController', ['$scope', 'Formulas', 'Notesheets', function($scope, Formulas, Notesheets) {
+  app.controller('MainController', ['$scope','$routeParams', 'Formulas', 'Notesheets', function($scope, $routeParams, Formulas, Notesheets) {
     $scope.editable = true;
     $scope.sheetData = [];
     $scope.data = [];
@@ -16,6 +16,37 @@
     .error(function(data) {
       console.log('Error: ' + data);
     });
+
+    $scope.loadNotesheet = function(){
+      var notesheetId = $routeParams.notesheetId;
+      if(notesheetId){
+        Notesheets.getOne(notesheetId)
+        .success(function(data) {
+          $scope.notesheet = {
+            title: data.title,
+            content: JSON.parse(data.content)
+          };
+          $scope.sheetData = $scope.notesheet.content;
+          console.log($scope.sheetData);
+        })
+        .error(function(data) {
+          console.log('Error: ' + data);
+        });
+      } else {
+        $scope.notesheet = {title:'New Notesheet'};
+        $scope.sheetData = [];
+      }
+    }
+
+    $scope.appendItem = function(object) {
+      //to disable duplicates
+      if ($scope.sheetData.indexOf(object) == -1) {
+        $scope.sheetData.push(object);
+        $scope.sheetDataIds.push(object._id);
+      } else {
+        console.log('already added');
+      }
+    }
 
     $scope.isInNoteSheet = function(item) {
       if ($scope.sheetData.indexOf(item) > -1) {
@@ -33,21 +64,12 @@
         $('#arrange').prop("disabled", false).click(function(){
           $scope.packery.layout();
         });
-        $scope.appendItem = function(object) {
-          //to disable duplicates
-          if ($scope.sheetData.indexOf(object) == -1) {
-            $scope.sheetData.push(object);
-            $scope.sheetDataIds.push(object._id);
-            $scope.packery.layout();
-          } else {
-            console.log('already added');
-          }
-        }
+        
       },
       link: function($scope, element, attrs) {
         element.ready(function() {
-        $scope.packery.layout();
-      });
+          $scope.packery.layout();
+        });
 
       }
     };

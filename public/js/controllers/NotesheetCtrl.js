@@ -4,19 +4,22 @@ angular.module('NotesheetCtrl', []).controller('NotesheetController', ['$scope',
   if(notesheetId){
     Notesheets.getOne(notesheetId)
     .success(function(data) {
-      $scope.notesheet = data;
+      $scope.notesheet = {
+        title: data.title,
+        content: JSON.parse(data.content)
+      };
+      console.log($scope.notesheet);
     })
     .error(function(data) {
       console.log('Error: ' + data);
     });
   } else {
-    $scope.notesheetTitle = 'Test Title';
+    //$scope.notesheet = {title: 'Test Title'};
   }
 
-  $scope.sheetData = [{title:'ih', content:'boo'},{title:'bla', content:'bra'}];
-
-  $scope.saveNotesheet = function(data){
+  $scope.saveNotesheet = function(_data){
     $scope.editable = false;
+    var data = JSON.stringify(_data);
     $scope.create(data);
   }
 
@@ -31,8 +34,9 @@ angular.module('NotesheetCtrl', []).controller('NotesheetController', ['$scope',
   }
 
   $scope.create = function(data){
+    console.log(data);
     var notesheet = {
-      title: $scope.notesheetTitle,
+      title: $scope.notesheet.title,
       content: data
     };
     Notesheets.create(notesheet)
@@ -48,8 +52,9 @@ angular.module('NotesheetCtrl', []).controller('NotesheetController', ['$scope',
 
   $scope.delete = function(){
    Notesheets.delete(notesheetId);
-   $scope.notesheet = {};
+   $scope.notesheet, $scope.sheetData = {};
  }
+ 
  $scope.update = function(){
   var notesheet = $scope.notesheet;
   if(!notesheet.updated) {
