@@ -17,11 +17,25 @@ angular.module('NotesheetCtrl', []).controller('NotesheetController', ['$scope',
     });
   }
 
-  $scope.create = function(data){
-    console.log(data);
+  $scope.createOrUpdate = function(title, content){
+    var id = $routeParams.notesheetId;
+    if(id){
+       Notesheets.getOne(id)
+        .success(function(data) {
+          $scope.update();
+        })
+        .error(function(data) {
+          console.log('Could not find sheet to update: ' + data);
+        });
+    } else {
+      $scope.create(title, content);
+    }
+  }
+
+  $scope.create = function(title, content){
     var notesheet = {
-      title: $scope.notesheet.title,
-      content: data
+      title: title,
+      content: content
     };
     Notesheets.create(notesheet)
     .success(function(data){
@@ -47,14 +61,18 @@ angular.module('NotesheetCtrl', []).controller('NotesheetController', ['$scope',
     $location.path('notesheets');
   }
 
-  $scope.update = function(){
+  $scope.update = function(title, content){
     var notesheet = $scope.notesheet;
+    notesheet.content = JSON.stringify(notesheet.content);
     if(!notesheet.updated) {
       notesheet.updated = [];
     }
     notesheet.updated.push(new Date().getTime());
-    console.log(notesheet);
     var id = notesheet._id
-    Notesheets.update(id, notesheet);
+    Notesheets.update(id, notesheet).success(function(data){
+      $location.path('notesheet/'+data._id);
+    }).error(function(data){
+      console.log('Error: '+data);
+    });
   }
 }]);

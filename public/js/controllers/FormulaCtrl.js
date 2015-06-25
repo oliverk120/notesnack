@@ -1,7 +1,9 @@
 
-angular.module('FormulaCtrl', []).controller('FormulaController', function($scope, $routeParams, Formulas) {
+angular.module('FormulaCtrl', []).controller('FormulaController', ['$scope', '$location', '$routeParams', 'Formulas', function($scope, $location, $routeParams, Formulas) {
   var formulaId = $routeParams.formulaId;
-  if(formulaId){
+
+  $scope.findOne = function(){
+    if(formulaId){
     Formulas.getOne(formulaId)
     .success(function(data) {
       $scope.formula = data;
@@ -10,7 +12,7 @@ angular.module('FormulaCtrl', []).controller('FormulaController', function($scop
       console.log('Error: ' + data);
     });
   }
-  
+  }
 
   $scope.create = function(){
     var formula = {
@@ -19,19 +21,21 @@ angular.module('FormulaCtrl', []).controller('FormulaController', function($scop
     };
     Formulas.create(formula)
     .success(function(data){
-      console.log('success');
-      console.log(data);
-      $scope.title = '', $scope.content = '';
+      $scope.title = '', 
+      $scope.content = '';
+      $location.path('/notesheets');
     })
     .error(function(data){
       console.log('Error: ' + data);
     });
   }
 
-  $scope.delete = function(){
+ $scope.delete = function(){
    Formulas.delete(formulaId);
    $scope.formula = {};
+   $location.path('/notesheets');
  }
+
  $scope.update = function(){
   var formula = $scope.formula;
   if(!formula.updated) {
@@ -46,7 +50,7 @@ angular.module('FormulaCtrl', []).controller('FormulaController', function($scop
 
     // pagination settings  
     $scope.currentPage = 1;
-    $scope.numPerPage = 5;
+    $scope.numPerPage = 10;
 
     ///Pagination Functions
     $scope.pagination = function(){
@@ -68,14 +72,14 @@ angular.module('FormulaCtrl', []).controller('FormulaController', function($scop
       $scope.currentPage = pageNo;
       var begin = (($scope.currentPage - 1) * $scope.numPerPage)
       , end = begin + $scope.numPerPage;
-      if($scope.data.length > 0){
-        $scope.filteredData = $scope.data.slice(begin, end);
+      if($scope.formulas.length > 0){
+        $scope.filteredFormulas = $scope.formulas.slice(begin, end);
       }
     };
 
     $scope.onFocus = function(){
       //allows you to search all formulas, not just the ones on the current pagination page
-      $scope.filteredData = $scope.data;
+      $scope.filteredData = $scope.formulas;
     }
 
     $scope.outFocus = function(){
@@ -83,4 +87,4 @@ angular.module('FormulaCtrl', []).controller('FormulaController', function($scop
       $scope.searchText = '';
       $scope.setPage($scope.currentPage);
     }
-  });
+  }]);

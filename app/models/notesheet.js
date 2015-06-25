@@ -23,6 +23,18 @@ var NotesheetSchema = new Schema({
   }
 });
 
+/**
+ * Validations
+ */
+NotesheetSchema.path('title').validate(function(title) {
+  return !!title;
+}, 'Title cannot be blank');
+
+NotesheetSchema.path('content').validate(function(content) {
+  return !!content;
+}, 'Content cannot be blank');
+
+
 NotesheetSchema.statics.load = function(id, cb) {
   this.findOne({
     _id: id

@@ -1,35 +1,33 @@
   // public/js/controllers/MainCtrl.js
   var app = angular.module('MainCtrl', []);
   app.controller('MainController', ['$scope','$routeParams', 'Formulas', 'Notesheets', function($scope, $routeParams, Formulas, Notesheets) {
-    //$scope.editable = true;
     $scope.sheetData = [];
-    $scope.data = [];
     $scope.sheetDataIds = [];
-
-    Formulas.get()
-    .success(function(data) {
-      $scope.data = data;
-      $scope.filteredData = data.slice(0, $scope.numPerPage);
-      $scope.totalItems = data.length;
-      //$scope.sheetData = data.slice(1,4);
-    })
-    .error(function(data) {
-      console.log('Error: ' + data);
-    });
-
+    
+    $scope.loadFormulas = function(){
+      Formulas.get()
+      .success(function(data) {
+        $scope.formulas = data;
+        $scope.filteredFormulas = $scope.formulas.slice(0, $scope.numPerPage);
+        $scope.totalItems = $scope.formulas.length;
+      })
+      .error(function(data) {
+        console.log('Error: ' + data);
+      });
+    }
+    
     $scope.loadNotesheet = function(){
       var notesheetId = $routeParams.notesheetId;
       if(notesheetId){
         Notesheets.getOne(notesheetId)
         .success(function(data) {
-          $scope.notesheet = {
-            title: data.title,
-            content: JSON.parse(data.content)
-          };
+          $scope.notesheet = data;
+          $scope.notesheet.content = JSON.parse(data.content);
           $scope.sheetData = $scope.notesheet.content;
           for(i = 0; i < $scope.sheetData.length; i++){
             $scope.sheetDataIds.push($scope.sheetData[i]._id);
           }
+          console.log($scope.notesheet);
         })
         .error(function(data) {
           console.log('Error: ' + data);
@@ -91,8 +89,7 @@
           var index = $scope.sheetData.indexOf(item);
           if (index != -1) {
             $scope.packery.remove(item);
-            $scope.sheetData.splice(index, 1);
-            
+            $scope.sheetData.splice(index, 1);          
           } else {
             console.log('already removed');
           }

@@ -18,19 +18,19 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/formula/create.html',
         })
         .when('/notesheets', {
-            templateUrl: 'views/notesheet/main.html',
+            templateUrl: 'views/notesheet/edit.html',
         })
         .when('/notesheets/list', {
             templateUrl: 'views/notesheet/index.html',
         })
         .when('/notesheet/:notesheetId', {
-            templateUrl: 'views/notesheet/main.html',
+            templateUrl: 'views/notesheet/view.html',
         })
         .when('/notesheet/:notesheetId/edit', {
             templateUrl: 'views/notesheet/edit.html',
         })
         .when('/notesheets/create', {
-            templateUrl: 'views/notesheet/create.html',
+            templateUrl: 'views/notesheet/edit.html',
         });
 
     $locationProvider.html5Mode(true);

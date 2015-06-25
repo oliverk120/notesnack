@@ -23,6 +23,17 @@ var FormulaSchema = new Schema({
   }
 });
 
+/**
+ * Validations
+ */
+FormulaSchema.path('title').validate(function(title) {
+  return !!title;
+}, 'Title cannot be blank');
+
+FormulaSchema.path('content').validate(function(content) {
+  return !!content;
+}, 'Content cannot be blank');
+
 FormulaSchema.statics.load = function(id, cb) {
   this.findOne({
     _id: id

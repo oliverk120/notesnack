@@ -1,10 +1,26 @@
-<div ng-controller="NotesheetController" class="sidebar col-md-2">
-      <div class="module">
-      <div>
-      <button class="btn" ng-click="delete()">Delete</button>
-      <button class="btn" ><a href="notesheet/{{notesheet._id}}/edit">Edit</a></button>
-      </div>
-      <h3 class="title">{{notesheet.title}}</h3>
-      <div class="" data-ng-repeat="formula in notesheet.content">{{formula}}</div>
-      </div>
-</div>      
+<div class="sidebar col-md-2" ng-controller = "NotesheetController" data-ng-init="loadFormulas(); notesheetList()">
+  <div class="col-md-12" >
+    <h3>Notesheets</h3>
+    <ul>
+      <li data-ng-repeat="notesheet in notesheets"><a href="notesheet/{{notesheet._id}}">{{notesheet.title}}</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="col-md-10" data-ng-init="loadNotesheet(); editable = false">
+  <div ng-controller="NotesheetController">
+    <h3>{{notesheet.title}}</h3>
+    <div class="options"> 
+    <a id="edit" class="btn" href="notesheet/{{notesheet._id}}/edit">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+      </a>
+      <button id="arrange" disabled class="btn">
+           
+        <span class="glyphicon glyphicon-th" aria-hidden="true"></span> Arrange
+      </button>
+    </div>
+  </div>
+  <div id="formulaSheet" workspace class="module-container">
+    <div data-ng-repeat="item in sheetData" nsformula></div>
+  </div>
+</div>
