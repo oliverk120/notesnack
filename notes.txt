@@ -1,0 +1,4 @@
+///NOTES
+
+- need to fix that if you edit an existing notesheet, the formulas in the sheet are greyed out in the side bar
+- add login and user save functions
