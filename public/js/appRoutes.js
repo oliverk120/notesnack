@@ -31,6 +31,15 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         })
         .when('/notesheets/create', {
             templateUrl: 'views/notesheet/edit.html',
+        })
+        .when('/user/:userId', {
+            templateUrl: 'views/user/view.html',
+        })
+        .when('/user/:userId/edit', {
+            templateUrl: 'views/user/edit.html',
+        })
+        .when('/users/register', {
+            templateUrl: 'views/user/register.html',
         });
 
     $locationProvider.html5Mode(true);
