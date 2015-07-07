@@ -64,7 +64,7 @@ angular.module('userService', []).factory('User', ['$rootScope', '$http', '$loca
     MeanUserKlass.prototype.login = function (user) {
       // this is an ugly hack due to mean-admin needs
       var destination = $location.path().indexOf('/login') === -1 ? $location.absUrl() : false;
-      $http.post('/api/login', {
+      $http.post('/api/users/login', {
           email: user.email,
           password: user.password,
           redirect: destination
@@ -181,6 +181,15 @@ angular.module('userService', []).factory('User', ['$rootScope', '$http', '$loca
 
     MeanUserKlass.prototype.getOne = function(id) {
         return $http.get('/api/user/'+ id);       
+    };
+    MeanUserKlass.prototype.get = function(id) {
+        return $http.get('/api/users');      
+    };
+    MeanUserKlass.prototype.update = function(id) {
+        return $http.put('/api/user/' + id, userData);     
+    };
+    MeanUserKlass.prototype.delete = function(id) {
+        return $http.delete('/api/user/' + id);    
     };
 
     //Temporary code

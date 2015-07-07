@@ -7,7 +7,7 @@ var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose   	   = require('mongoose');
 var morgan       = require('morgan');
-
+var passport 	= require('passport');
 // configuration ===========================================
     
 // config files
@@ -21,6 +21,9 @@ var port = process.env.PORT || 8080;
 mongoose.connect(db.url); 
 
 app.use(morgan('dev')); // log every request to the console
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json 
@@ -39,7 +42,7 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public')); 
 
 // routes ==================================================
-require('./app/routes')(app); // configure our routes
+require('./app/routes')(app, passport); // configure our routes
 
 // start app ===============================================
 // startup our app at http://localhost:8080

@@ -32,6 +32,12 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         .when('/notesheets/create', {
             templateUrl: 'views/notesheet/edit.html',
         })
+        .when('/users', {
+            templateUrl: 'views/user/index.html',
+        })
+        .when('/users/login', {
+            templateUrl: 'views/user/login.html',
+        })
         .when('/user/:userId', {
             templateUrl: 'views/user/view.html',
         })

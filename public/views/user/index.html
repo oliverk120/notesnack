@@ -1,0 +1,11 @@
+<div ng-controller="UserController" class="sidebar col-md-2" data-ng-init="userList()">
+<div ng-repeat="user in users">
+		
+		<h3 class="title"><a href="user/{{user._id}}">{{user.username}}</a></h3>
+		<div class="content">{{user.email}}</div>
+		<div>
+			<button class="btn" ng-click="delete(user._id)">Delete</button>
+			<button class="btn" ><a href="user/{{user._id}}/edit">Edit</a></button>
+		</div>
+	</div>
+</div>      

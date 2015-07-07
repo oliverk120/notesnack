@@ -3,7 +3,7 @@ var formula = require('./controllers/formulaController');
 var notesheet = require('./controllers/notesheetController');
 var user = require('./controllers/userController');
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
 
         // server routes ===========================================================
         // handle things like api calls
@@ -39,6 +39,12 @@ module.exports = function(app) {
         app.route('/api/users')
             .get(user.all)
             .post(user.create);
+
+        app.route('/api/users/login')
+            .post(passport.authenticate('local'));
+
+
+            
         // route to handle delete goes here (app.delete)
 
         // frontend routes =========================================================
