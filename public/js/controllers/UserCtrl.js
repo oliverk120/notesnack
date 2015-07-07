@@ -1,6 +1,24 @@
 'use strict';
 
 angular.module('UserCtrl', [])
+  .controller('UserController', ['$scope','$routeParams', 'User',
+    function($scope,$routeParams, User) {
+
+      var userId = $routeParams.userId;
+
+        $scope.findOne = function(){
+    if(userId){
+    User.getOne(userId)
+    .success(function(data) {
+      $scope.user = data;
+    })
+    .error(function(data) {
+      console.log('Error: ' + data);
+    });
+  }
+  }
+    }
+  ])
   .controller('LoginController', ['$rootScope', 'User',
     function($rootScope, User) {
       var vm = this;

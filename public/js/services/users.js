@@ -69,7 +69,11 @@ angular.module('userService', []).factory('User', ['$rootScope', '$http', '$loca
           password: user.password,
           redirect: destination
         })
-        .success(this.onIdentity.bind(this))
+        .success(function(data){
+          this.onIdentity.bind(this);
+          console.log(data);
+          $location.path('/user/'+data._id);
+        })
         .error(this.onIdFail.bind(this));
     };
 
@@ -81,7 +85,11 @@ angular.module('userService', []).factory('User', ['$rootScope', '$http', '$loca
         username: user.username,
         name: user.name
       })
-        .success(this.onIdentity.bind(this))
+        .success(function(data){
+          //this.onIdentity.bind(this);
+          console.log(data);
+          $location.path('/user/'+data._id);
+        })
         .error(this.onIdFail.bind(this));
     };
 
@@ -169,6 +177,10 @@ angular.module('userService', []).factory('User', ['$rootScope', '$http', '$loca
       });
 
       return deferred.promise;
+    };
+
+    MeanUserKlass.prototype.getOne = function(id) {
+        return $http.get('/api/user/'+ id);       
     };
 
     //Temporary code

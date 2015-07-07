@@ -33,23 +33,14 @@ exports.create = function(req, res) {
     var user = new User(saveUser);
     user.save(function(err) {
       if (err) {
-        return res.json(500, {
-          error: 'Cannot save the user'
-      });
+        console.log(err);
     }
     console.log(user);
     res.json(user);
   });
   }
-  if(req.body.isArray){
-    for (var i = 0, len = req.body.length; i < len; i++) {
-      saveUser(req.body[i]);
-      console.log('user '+i+'/'+len+' saved successfully');
-    }
-  } else {
-    saveUser(req.body);
-  }
-  
+  saveUser(req.body);
+    
 };
 
 exports.update = function(req, res) {

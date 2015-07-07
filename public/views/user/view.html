@@ -1,0 +1,10 @@
+<div ng-controller="UserController" class="sidebar col-md-2">
+<div class="module" data-ng-init="findOne()">
+		<div>
+			<button class="btn" ng-click="delete()">Delete</button>
+			<button class="btn" ><a href="user/{{user._id}}/edit">Edit</a></button>
+		</div>
+		<h3 class="title">{{user.username}}</h3>
+		<div class="content"> {{user.email}}</div>
+	</div>
+</div>      
